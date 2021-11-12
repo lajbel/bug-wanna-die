@@ -1,0 +1,75 @@
+-- Collection of games made in I Wanna Die
+
+--root
+clear
+goto "gameSelector"
+
+@gameSelector -- Game Selector Marker
+clear
+print "Bug Wanna Die 🐜"
+print " "
+print "Hi, select your minigame:"
+print " "
+print "R - Roulette 🐞"
+print " "
+set #gameSelected, [input "[r] >> "]
+goif "r", [check [add #gameSelected, 0], "r"]
+goto "bug"
+die
+
+-- Roulette Minigame ------------------------
+
+@r
+clear
+print "Roulette game 🎲"
+
+-- Roulette Variables
+set #slots, 6
+set #bullet, [floor [random 1, 6]]
+
+print " "
+input "Enter for start"
+goto "r-shoot-u"
+die
+
+@r-shoot-u
+clear
+print "You turn 🐌"
+print " "
+input "Shooting... 🔫"
+print " "
+goif "r-die-u", [check [add #slots, 0], [add #bullet, 0]]
+input "Nothing happened 👼"
+set #slots, [floor [add #slots, -1]]
+goto "r-shoot-bug"
+die
+
+@r-shoot-bug
+clear
+print "Bug turn 🐞"
+print " "
+input "Shooting... 🔫"
+print " "
+goif "r-die-bug", [check [add #slots, 0], [add #bullet, 0]] 
+input "Nothing happened 👼"
+set #slots, [floor [add #slots, -1]]
+goto "r-shoot-u"
+die
+
+@r-die-u
+input "You died 💀. Bug win"
+goto "gameSelector"
+die
+
+@r-die-bug
+input "Bug died 💀. You win"
+goto "gameSelector"
+die
+
+-- Bug scene --------------------------------
+
+@bug -- Bug Marker
+clear
+print "Selected game no exits 🐛"
+goto "gameSelector"
+die
