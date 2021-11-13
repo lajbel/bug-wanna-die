@@ -11,14 +11,24 @@ print " "
 print "Hi, select your minigame:"
 print " "
 print "R - Roulette 🐞"
+print "P - Rock Paper & Scissors 🐝"
+print "H - Hanged 🦋"
+print "X - 3 n Row 🦗 [noworkfornow]"
 print " "
-set #gameSelected, [input "[r] >> "]
+set #gameSelected, [input "[r, p, h, x] >> "]
 goif "r", [check [add #gameSelected, 0], "r"]
+goif "r", [check [add #gameSelected, 0], "R"]
+goif "p", [check [add #gameSelected, 0], "p"]
+goif "p", [check [add #gameSelected, 0], "P"]
+goif "h", [check [add #gameSelected, 0], "h"]
+goif "h", [check [add #gameSelected, 0], "H"]
+goif "x", [check [add #gameSelected, 0], "x"]
+goif "x", [check [add #gameSelected, 0], "X"]
+
 goto "bug"
 die
 
 -- Roulette Minigame ------------------------
-
 @r
 clear
 print "Roulette game 🎲"
@@ -28,7 +38,7 @@ set #slots, 6
 set #bullet, [floor [random 1, 6]]
 
 print " "
-input "Enter for start"
+input "Enter for start "
 goto "r-shoot-u"
 die
 
@@ -36,10 +46,10 @@ die
 clear
 print "You turn 🐌"
 print " "
-input "Shooting... 🔫"
+input "Shooting... 🔫 "
 print " "
 goif "r-die-u", [check [add #slots, 0], [add #bullet, 0]]
-input "Nothing happened 👼"
+input "Nothing happened 👼 "
 set #slots, [floor [add #slots, -1]]
 goto "r-shoot-bug"
 die
@@ -48,28 +58,241 @@ die
 clear
 print "Bug turn 🐞"
 print " "
-input "Shooting... 🔫"
+input "Shooting... 🔫 "
 print " "
 goif "r-die-bug", [check [add #slots, 0], [add #bullet, 0]] 
-input "Nothing happened 👼"
+input "Nothing happened 👼 "
 set #slots, [floor [add #slots, -1]]
 goto "r-shoot-u"
 die
 
 @r-die-u
-input "You died 💀. Bug win"
+input "You died 💀. Bug win "
 goto "gameSelector"
 die
 
 @r-die-bug
-input "Bug died 💀. You win"
+input "Bug died 💀. You win "
 goto "gameSelector"
 die
 
--- Bug scene --------------------------------
-
-@bug -- Bug Marker
+-- RPS Game ---------------------------------
+@p
 clear
-print "Selected game no exits 🐛"
+print "Rock Paper & Scissors 🏹"
+
+-- Rps Variables
+set #playerScore, [floor 0]
+set #playerChoice, ""
+set #bugScore, [floor 0]
+set #bugChoice, ""
+set #round, 1
+
+print " "
+input "Enter for start "
+goto "p-game"
+die
+
+@p-game
+clear
+goif "p-u-win", [check [add #playerScore, 0], 3]
+goif "p-bug-win", [check [add #bugScore, 0], 3]
+print [text "Round ", [text [int [add #round, 0]], " 🦟"]]
+print [text [text [add #playerScore, 0], " : "], [add #bugScore, 0]]
+print " "
+set #playerChoice, [input "[r, p, s] >> "]
+goif "p-bug", [not [or [check [add #playerChoice, 0], "r"], [or [check [add #playerChoice, 0], "s"], [check [add #playerChoice, 0], "p"]]]]
+
+set #bugChoice, [floor [random 1, 3]]
+
+doif [check [add #bugChoice, 0], 1]
+set #bugChoice, "r"
+doif [check [add #bugChoice, 0], 2]
+set #bugChoice, "p"
+doif [check [add #bugChoice, 0], 3]
+set #bugChoice, "s"
+
+goto "p-results"
+die
+
+@p-results
+clear
+print [text "🐌: ", [text [add #playerChoice, 0], [text " - ", [text [add #bugChoice, 0], " :🐝 "]]]]
+print " "
+set #round, [add #round, 1]
+goif "p-tie", [check [add #bugChoice, 0], [add #playerChoice, 0]]
+goif "p-u-score", [and [check [add #playerChoice, 0], "r"], [check [add #bugChoice, 0], "s"]]
+goif "p-u-score", [and [check [add #playerChoice, 0], "s"], [check [add #bugChoice, 0], "p"]]
+goif "p-u-score", [and [check [add #playerChoice, 0], "p"], [check [add #bugChoice, 0], "r"]]
+goto "p-bug-score"
+die
+
+@p-tie
+print " "
+input "Tie 😐 " 
+goto "p-game"
+die
+
+@p-u-score
+print " "
+input "U wins the round 🐌! "
+set #playerScore, [floor [add #playerScore, 1]]
+goto "p-game"
+die
+
+@p-bug-score
+input "Bug wins the round 🐝! "
+set #bugScore, [floor [add #bugScore, 1]]
+goto "p-game"
+die
+
+@p-u-win
+input "U wins the game 🐌! "
+goto "gameSelector"
+die
+
+@p-bug-win
+print " "
+input "Bug wins the game 🐝! "
+goto "gameSelector"
+die
+
+@p-bug
+clear
+input "Wrong selection 😐 "
+goto "p-game"
+die
+-- HANGED -----------------------------------
+@h
+clear
+print "Hanged 🧵"
+
+-- Hanged Variables
+set #word, "BUG"
+set #letter1, "_"
+set #letter2, "_"
+set #letter3, "_"
+set #losses, 0
+set #head, " "
+set #body, " "
+set #legs, " "
+
+print " "
+input "Enter for start "
+goto "h-game"
+die
+
+@h-game
+clear
+print [text [text [add #letter1, 0], [add #letter2, 0]], [add #letter3, 0]]
+print "_"
+print " \"
+print [text " ", [add #head, 0]]
+print [text " ", [add #body, 0]]
+print [text " ", [add #legs, 0]]
+print "  "
+goif "h-dead", [check [add #losses, 0], 5]
+goif "h-win", [and [and [check [add #letter1, 0], "B"], [check [add #letter2, 0], "U"]], [check [add #letter3, 0], "G"]]
+set #playerLetter, [input "Letter: "]
+goto "h-checker"
+die
+
+@h-checker
+goif "h-find-b", [check [add #playerLetter, 0], "b"]
+goif "h-find-b", [check [add #playerLetter, 0], "B"]
+goif "h-find-u", [check [add #playerLetter, 0], "u"]
+goif "h-find-u", [check [add #playerLetter, 0], "U"]
+goif "h-find-g", [check [add #playerLetter, 0], "g"]
+goif "h-find-g", [check [add #playerLetter, 0], "G"]
+goto "h-no-find"
+die
+
+@h-find-b
+clear
+goif "h-no-find", [check [add #letter1, 0], "B"]
+input "You find the letter b! "
+set #letter1, "B"
+goto "h-game"
+die
+
+@h-find-u
+clear
+goif "h-no-find", [check [add #letter2, 0], "U"]
+input "You find the letter u! "
+set #letter2, "U"
+goto "h-game"
+die
+
+@h-find-g
+clear
+goif "h-no-find", [check [add #letter3, 0], "G"]
+input "You find the letter g! "
+set #letter3, "G"
+goto "h-game"
+die
+
+@h-no-find
+clear
+input "Incorrect or repeat letter 🦋 "
+set #losses, [add #losses, 1]
+doif [check [add #losses, 0], 1]
+set #head, "😊"
+doif [check [add #losses, 0], 2]
+set #body, " |"
+doif [check [add #losses, 0], 3]
+set #legs, "/"
+doif [check [add #losses, 0], 4]
+set #legs, "/ \"
+doif [check [add #losses, 0], 5]
+set #head, "💀"
+goto "h-game"
+die
+
+@h-dead
+input "HANGED! 🦋 "
+goto "gameSelector"
+die
+
+@h-win
+input "You win!!! The word is BUG 🐞 "
+goto "gameSelector"
+die
+
+-- 3 n Row ----------------------------------
+@x
+clear
+print "3 n Row 👓"
+
+-- 3nRow Variables
+set #line1, "[1]"
+set #line2, "[2]"
+set #line3, "[3]"
+set #line4, "[4]"
+set #line5, "[5]"
+set #line6, "[6]"
+set #line7, "[7]"
+set #line8, "[8]"
+set #line9, "[9]"
+
+print " "
+input "Enter for start "
+goto "x-u"
+die
+
+@x-u
+clear
+print "You turn 🐌"
+print " "
+print [text [text [add #line1, 0], [add #line2, 0]], [add #line3, 0]]
+print [text [text [add #line4, 0], [add #line5, 0]], [add #line6, 0]]
+print [text [text [add #line7, 0], [add #line8, 0]], [add #line9, 0]]
+print " "
+set #xSelection, input "[1-9] >> "
+die
+
+-- Bug marker -------------------------------
+@bug
+clear
+input "Selected game no exits 🐛 "
 goto "gameSelector"
 die
