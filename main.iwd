@@ -2,20 +2,27 @@
 
 --root
 clear
+set #bugHat, " "
+set #bugBug, "🐞"
+set #bugHand, " "
+set #bugLegs, " "
+
 goto "gameSelector"
 
 @gameSelector -- Game Selector Marker
 clear
-print "Bug Wanna Die 🐜"
+print "Bug Wanna Die 🐞"
 print " "
-print "Hi, select your minigame:"
-print " "
-print "R - Roulette 🐞"
+print "R - Roulette 🐜"
 print "P - Rock Paper & Scissors 🐝"
 print "H - Hanged 🦋"
 print "X - 3 n Row 🦗 [noworkfornow]"
 print " "
-set #gameSelected, [input "[r, p, h, x] >> "]
+print "D - Bug DressUp 🎀"
+print "G - Bug gallery 🖼️"
+print "C - Credits 🐌"
+print " "
+set #gameSelected, [input "[r, p, h, ...] >> "]
 goif "r", [check [add #gameSelected, 0], "r"]
 goif "r", [check [add #gameSelected, 0], "R"]
 goif "p", [check [add #gameSelected, 0], "p"]
@@ -24,6 +31,15 @@ goif "h", [check [add #gameSelected, 0], "h"]
 goif "h", [check [add #gameSelected, 0], "H"]
 goif "x", [check [add #gameSelected, 0], "x"]
 goif "x", [check [add #gameSelected, 0], "X"]
+goif "i", [check [add #gameSelected, 0], "i"]
+goif "i", [check [add #gameSelected, 0], "I"]
+goif "c", [check [add #gameSelected, 0], "c"]
+goif "c", [check [add #gameSelected, 0], "C"]
+goif "d", [check [add #gameSelected, 0], "d"]
+goif "d", [check [add #gameSelected, 0], "D"]
+goif "g", [check [add #gameSelected, 0], "g"]
+goif "g", [check [add #gameSelected, 0], "G"]
+goif "...", [check [add #gameSelected, 0], "..."]
 
 goto "bug"
 die
@@ -56,7 +72,7 @@ die
 
 @r-shoot-bug
 clear
-print "Bug turn 🐞"
+print "Bug turn 🐜"
 print " "
 input "Shooting... 🔫 "
 print " "
@@ -152,7 +168,6 @@ goto "gameSelector"
 die
 
 @p-bug-win
-print " "
 input "Bug wins the game 🐝! "
 goto "gameSelector"
 die
@@ -288,6 +303,168 @@ print [text [text [add #line4, 0], [add #line5, 0]], [add #line6, 0]]
 print [text [text [add #line7, 0], [add #line8, 0]], [add #line9, 0]]
 print " "
 set #xSelection, input "[1-9] >> "
+die
+
+-- Bug Dressup ------------------------------
+@d
+clear
+print "Bug Dress Up 🎀"
+print " "
+print "[you can put any char or emoji for dress your bug]"
+set #dSetter, 0
+print " "
+input "Enter for start "
+goto "d-design"
+die
+
+@d-design
+clear
+print "Design Bug 👚"
+print " "
+print [add #bugHat, 0]
+print [text [add #bugBug, 0], [add #bugHand, 0]]
+print [add #bugLegs, 0]
+print " "
+goif "d-hat", [check [add #dSetter, 0], 0]
+goif "d-bug", [check [add #dSetter, 0], 1]
+goif "d-hand", [check [add #dSetter, 0], 2]
+goif "d-legs", [check [add #dSetter, 0], 3]
+input "You bug is pretty cute! You finished (try put 'i' in main menu) "
+goto "gameSelector"
+die
+
+@d-hat
+set #bugHat, [input "[🎩, 👒] >> "]
+set #dSetter, [add #dSetter, 1]
+goto "d-design"
+die
+
+@d-bug
+set #bugBug, [input "[🐞, 🐌, 🦂, 🐜] >> "]
+set #dSetter, [add #dSetter, 1]
+goto "d-design"
+die
+
+@d-hand
+set #bugHand, [input "[🔫, 🌼, 🥊] >> "]
+set #dSetter, [add #dSetter, 1]
+goto "d-design"
+die
+
+@d-legs
+set #bugLegs, [input "[👟, 🛒, 🚲] >> "]
+set #dSetter, [add #dSetter, 1]
+goto "d-design"
+die
+
+-- Bug Gallery ------------------------------
+@g 
+clear
+set #galleryCount, 0
+print "Bug gallery 🖼️"
+print " "
+print "A gallery of bugs made with the bug designer, If you want your bug to be here, send a photo of it on twitter with #BugWannaDie"
+print " "
+input "Enter for view the gallery "
+goto "g-set"
+die
+
+@g-set
+goif "g-lajbel", [check [add #galleryCount, 0], 0]
+goif "g-antikore", [check [add #galleryCount, 0], 1]
+goif "g-kiveygaming", [check [add #galleryCount, 0], 2]
+set #galleryCount, 0
+goto "g-set"
+die
+
+@g-show
+clear
+print [add #gTitle, 0]
+print "============================"
+print "|                          |"
+print "|                          |"
+print [text "|           ", [text [add #gBugHat, 0], "             |"]]
+print [text [text "|           ", [add #gBugBug, 0]], [text [add #gBugHand, 0], "           |"]]
+print [text "|           ", [text [add #gBugLegs, 0], "             |"]]
+print "|                          |"
+print "|                          |"
+print "============================"
+print [text "by: ", [add #gAuthor, 0]]
+print " "
+set #gSelection, [input "Enter for continue or type exit for go to main menu >> "]
+doif [or [check [add #gSelection, 0], "exit"], [check [add #gSelection, 0], "EXIT"]]
+goto "gameSelector"
+set #galleryCount, [add #galleryCount, 1]
+goto "g-set"
+die
+
+@g-lajbel
+set #gBugHat, "🎩"
+set #gBugBug, "🐞"
+set #gBugHand, "🍷"
+set #gBugLegs, "🌏" 
+set #gTitle, "mr bug"
+set #gAuthor, "LaJBel"
+goto "g-show"
+die
+
+@g-antikore
+set #gBugHat, "🤠"
+set #gBugBug, "👕"
+set #gBugHand, "🔫"
+set #gBugLegs, "🥾" 
+set #gTitle, "Cowboy"
+set #gAuthor, "Antikore"
+goto "g-show"
+die
+
+@g-kiveygaming
+set #gBugHat, "  "
+set #gBugBug, "🦜"
+set #gBugHand, "  "
+set #gBugLegs, "  " 
+set #gTitle, "Parrot"
+set #gAuthor, "KiveyGaming"
+goto "g-show"
+die
+
+-- Credits ----------------------------------
+@c
+clear
+print "BUG WANNA DIE 🐞"
+print "for the #GameOff2021 😺"
+print " "
+print "Credits"
+print "🐌 LaJBel - Code and Minigames"
+print "🦂 Antikore - IWANNADIE creator and some minigames"
+print " "
+print "Itch: https://lajbel.itch.io/bug-wanna-die"
+print "GitHub: https://github.com/lajbel/bug-wanna-die"
+print " "
+input "Enter for back to main menu"
+goto "gameSelector"
+die
+
+-- For stupids ------------------------------
+@...
+clear
+print "You are stupid? 🐞"
+input "THE DAMN 3 POINTS MEANS YOU MUST ENTER THE LETTER OF THE GAME YOU WANT TO ENTER "
+goto "gameSelector"
+die
+
+-- BUG WANANA DIE ---------------------------
+@i
+clear
+print " ________________________________________ " 
+print "/ I WANNA DIEEEEEEEEEEEEEEEEEEEEEEEEEEEE \"
+print " ---------------------------------------- "
+print "          \                               "
+print "           \                              "
+print [text "            ", [text [add #bugHat, 0], "                             "]]
+print [text [text "            ", [add #bugBug, 0]], [text [add #bugHand, 0], "                             "]]
+input [text "            ", [text [add #bugLegs, 0], "                             "]]
+goto "gameSelector"
 die
 
 -- Bug marker -------------------------------
