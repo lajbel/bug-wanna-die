@@ -1,7 +1,6 @@
-# Bug Wanna Die 🐜
+![banner](https://img.itch.zone/aW1nLzc0MzA2NzUucG5n/original/Sg4WE3.png)
 
 This is a collection of minigames made in [IWANNADIE](https://esolangs.org/wiki/IWANNADIE#) Language
-![banner](https://imgur.com/nsNHubG.png)
 
 ## Features
 **4 MINIGAMES** <br>
