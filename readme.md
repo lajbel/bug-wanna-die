@@ -5,7 +5,7 @@ This is a collection of minigames made in [IWANNADIE](https://esolangs.org/wiki/
 ![banner](https://imgur.com/nsNHubG.png)
 
 ## Features
-**4 MINIGAMES** <br>
+**3 MINIGAMES** <br>
 **BUGS** <br>
 **BUG MAKER** <br>
 **BUG GALLERY** <br>

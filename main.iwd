@@ -16,7 +16,6 @@ print " "
 print "R - Roulette 🐜"
 print "P - Rock Paper & Scissors 🐝"
 print "H - Hanged 🦋"
-print "X - 3 n Row 🦗 [noworkfornow]"
 print " "
 print "D - Bug DressUp 🎀"
 print "G - Bug gallery 🖼️"
@@ -273,38 +272,6 @@ input "You win!!! The word is BUG 🐞 "
 goto "gameSelector"
 die
 
--- 3 n Row ----------------------------------
-@x
-clear
-print "3 n Row 👓"
-
--- 3nRow Variables
-set #line1, "[1]"
-set #line2, "[2]"
-set #line3, "[3]"
-set #line4, "[4]"
-set #line5, "[5]"
-set #line6, "[6]"
-set #line7, "[7]"
-set #line8, "[8]"
-set #line9, "[9]"
-
-print " "
-input "Enter for start "
-goto "x-u"
-die
-
-@x-u
-clear
-print "You turn 🐌"
-print " "
-print [text [text [add #line1, 0], [add #line2, 0]], [add #line3, 0]]
-print [text [text [add #line4, 0], [add #line5, 0]], [add #line6, 0]]
-print [text [text [add #line7, 0], [add #line8, 0]], [add #line9, 0]]
-print " "
-set #xSelection, input "[1-9] >> "
-die
-
 -- Bug Dressup ------------------------------
 @d
 clear
@@ -440,6 +407,8 @@ print "🦂 Antikore - IWANNADIE creator and some minigames"
 print " "
 print "Itch: https://lajbel.itch.io/bug-wanna-die"
 print "GitHub: https://github.com/lajbel/bug-wanna-die"
+print " "
+print "This game have 444 lines"
 print " "
 input "Enter for back to main menu"
 goto "gameSelector"
