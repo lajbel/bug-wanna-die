@@ -28,8 +28,6 @@ goif "p", [check [add #gameSelected, 0], "p"]
 goif "p", [check [add #gameSelected, 0], "P"]
 goif "h", [check [add #gameSelected, 0], "h"]
 goif "h", [check [add #gameSelected, 0], "H"]
-goif "x", [check [add #gameSelected, 0], "x"]
-goif "x", [check [add #gameSelected, 0], "X"]
 goif "i", [check [add #gameSelected, 0], "i"]
 goif "i", [check [add #gameSelected, 0], "I"]
 goif "c", [check [add #gameSelected, 0], "c"]
@@ -176,6 +174,7 @@ clear
 input "Wrong selection 😐 "
 goto "p-game"
 die
+
 -- HANGED -----------------------------------
 @h
 clear
@@ -433,6 +432,7 @@ print "           \                              "
 print [text "            ", [text [add #bugHat, 0], "                             "]]
 print [text [text "            ", [add #bugBug, 0]], [text [add #bugHand, 0], "                             "]]
 input [text "            ", [text [add #bugLegs, 0], "                             "]]
+
 goto "gameSelector"
 die
 
